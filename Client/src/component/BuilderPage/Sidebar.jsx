@@ -6,6 +6,7 @@ import {
   XIcon,
 } from "lucide-react";
 import React, { useState } from "react";
+import { COMPONENT_COLORS } from "../../constants";
 
 // Sidebar component providing draggable system components for the builder
 const Sidebar = () => {
@@ -24,55 +25,55 @@ const Sidebar = () => {
       text: "User",
       logo: "https://cdn.simpleicons.org/openid",
       type: "Client",
-      color: "#6366f1",
+      color: COMPONENT_COLORS.CLIENT,
     },
     {
       text: "Client App",
       logo: "https://cdn.simpleicons.org/react",
       type: "Client",
-      color: "#6366f1",
+      color: COMPONENT_COLORS.CLIENT,
     },
     {
       text: "CDN",
       logo: "https://cdn.simpleicons.org/cloudflare",
       type: "Infrastructure",
-      color: "#a855f7",
+      color: COMPONENT_COLORS.INFRASTRUCTURE,
     },
     {
       text: "Load Balancer",
       logo: "https://cdn.simpleicons.org/nginx",
       type: "Infrastructure",
-      color: "#a855f7",
+      color: COMPONENT_COLORS.INFRASTRUCTURE,
     },
     {
       text: "API Gateway",
       logo: "https://cdn.simpleicons.org/kong",
       type: "Backend",
-      color: "#7c3aed",
+      color: COMPONENT_COLORS.BACKEND,
     },
     {
       text: "Database",
       logo: "https://cdn.simpleicons.org/mongodb",
       type: "Database",
-      color: "#22c55e",
+      color: COMPONENT_COLORS.DATABASE,
     },
     {
       text: "Cache",
       logo: "https://cdn.simpleicons.org/redis",
       type: "Database",
-      color: "#22c55e",
+      color: COMPONENT_COLORS.DATABASE,
     },
     {
       text: "Notification Service",
       logo: "https://cdn.simpleicons.org/firebase",
       type: "Service",
-      color: "#ec4899",
+      color: COMPONENT_COLORS.SERVICE,
     },
     {
       text: "AI Service",
       logo: "https://cdn.simpleicons.org/openai",
       type: "AI",
-      color: "#06b6d4",
+      color: COMPONENT_COLORS.AI,
     },
   ];
 
@@ -222,7 +223,11 @@ const Sidebar = () => {
                     transition-all duration-200
                     cursor-grab active:cursor-grabbing"
                   >
-                    <img src={e.logo} className="h-5 w-5" />
+                    <img
+                      src={e.logo}
+                      className="h-5 w-5"
+                      alt={`${e.text} icon`}
+                    />
 
                     <span className="text-sm">{e.text}</span>
 

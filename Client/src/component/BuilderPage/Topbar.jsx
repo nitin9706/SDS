@@ -1,6 +1,6 @@
 import React from "react";
 import { Save, Download, BarChart3, Search, Play } from "lucide-react";
-import { exportAsPDF } from "./Canvas";
+import { exportAsPDF } from "../../utils/exportUtils";
 
 // Top navigation bar component for the builder with actions and search
 const Topbar = () => {

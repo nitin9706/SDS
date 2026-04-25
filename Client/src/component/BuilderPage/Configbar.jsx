@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNodeContext } from "../../context/NodeContext";
 import { useReactFlow } from "reactflow";
+import { COMPONENT_COLORS, DEFAULT_COMPONENT_CONFIG } from "../../constants";
 
 // Configuration panel component for editing selected node properties
 const Configbar = () => {
   const { selectedNode, setSelectedNode } = useNodeContext();
   const { getNodes, setNodes } = useReactFlow();
 
-  // Local state for form inputs
-  const [label, setLabel] = useState("");
-  const [color, setColor] = useState("#6366f1");
-
-  // Update local state when selected node changes
-  useEffect(() => {
-    if (selectedNode) {
-      setLabel(selectedNode.data.label || "");
-      setColor(selectedNode.data.color || "#6366f1");
-    }
-  }, [selectedNode]);
+  // Get current values from selected node or defaults
+  const currentLabel = selectedNode?.data.label || "";
+  const currentColor = selectedNode?.data.color || COMPONENT_COLORS.CLIENT;
 
   // Don't render if no node is selected
   if (!selectedNode) return null;
@@ -93,7 +86,11 @@ const Configbar = () => {
           </h3>
 
           <div className="flex items-center gap-3 bg-white/5 p-3 rounded-lg">
-            <img src={selectedNode.data.logo} className="h-6 w-6" />
+            <img
+              src={selectedNode.data.logo}
+              className="h-6 w-6"
+              alt={`${selectedNode.data.label} icon`}
+            />
             <div>
               <p className="font-medium">{selectedNode.data.label}</p>
               <p className="text-xs text-gray-400">
@@ -107,9 +104,9 @@ const Configbar = () => {
         <div>
           <label className="text-xs text-gray-400">Label</label>
           <input
-            value={label}
+            type="text"
+            value={currentLabel}
             onChange={(e) => {
-              setLabel(e.target.value);
               updateNode({ label: e.target.value });
             }}
             className="w-full mt-1 px-3 py-2 bg-white/10 border border-white/10 rounded-lg"
@@ -121,9 +118,8 @@ const Configbar = () => {
           <label className="text-xs text-gray-400">Color</label>
           <input
             type="color"
-            value={color}
+            value={currentColor}
             onChange={(e) => {
-              setColor(e.target.value);
               updateNode({ color: e.target.value });
             }}
             className="mt-1 w-full h-10 rounded-md"

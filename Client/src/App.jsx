@@ -1,9 +1,6 @@
-import { Routes, Route } from "react-router-dom";
-
-import LandingPage from "./component/LandingPage/Landingpage";
+import LandingPage from "./component/LandingPage/LandingPage";
 import Builder from "./component/BuilderPage/Builder";
-import Login from "./component/LoginPage/Login";
-
+import { Router, Route, Routes } from "react-router-dom";
 // Main App component that handles routing for the entire application
 function App() {
   return (

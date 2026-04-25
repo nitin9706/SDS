@@ -117,10 +117,10 @@ export default function LandingPage() {
         </div>
 
         <a
-          href="https://github.com/nitin9706"
+          href="https://github.com/nitin9706/SDS"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 border border-gray-700 px-5 py-2 rounded-lg hover:bg-neutral-900 transition"
+          className="flex items-center gap-2 border border-gray-700 px-5 py-2 rounded-lg  transition hover:bg-white hover:text-black hover:shadow-[0px_0px_25px_purple] duration-500 hover:border-purple-600"
         >
           <RiGithubFill className="text-xl" />
           GitHub

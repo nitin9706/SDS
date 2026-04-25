@@ -1,6 +1,7 @@
 // CustomNode.jsx
 import React from "react";
 import { Handle, Position, useReactFlow } from "reactflow";
+import { COMPONENT_COLORS } from "../../constants";
 
 // Custom node component for React Flow with delete functionality
 const CustomNode = ({ id, data, selected }) => {
@@ -19,7 +20,7 @@ const CustomNode = ({ id, data, selected }) => {
     <div
       style={{
         position: "relative",
-        background: data.color || "#6366f1",
+        background: data.color || COMPONENT_COLORS.CLIENT,
         color: "#fff",
         padding: "8px 12px",
         borderRadius: "8px",
@@ -39,7 +40,7 @@ const CustomNode = ({ id, data, selected }) => {
       {data.logo && (
         <img
           src={data.logo}
-          alt=""
+          alt={`${data.label} component icon`}
           style={{ height: "16px", width: "16px", objectFit: "contain" }}
         />
       )}
@@ -48,7 +49,9 @@ const CustomNode = ({ id, data, selected }) => {
       <div className="flex flex-col">
         {" "}
         <span>{data.label}</span>
-        <span className="text-xs">{data.defaultData.instances}</span>
+        <span className="text-xs">
+          Instance: {data.defaultData.instances || 1}
+        </span>
       </div>
 
       {/* Delete button */}

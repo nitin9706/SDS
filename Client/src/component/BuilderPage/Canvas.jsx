@@ -13,23 +13,6 @@ import CustomNode from "./CustomNode";
 import CustomEdge from "./CustomEdge";
 import { useReactFlow } from "reactflow";
 import { useNodeContext } from "../../context/NodeContext";
-import jsPDF from "jspdf";
-import { toPng } from "html-to-image";
-
-// Function to export the current canvas as a PDF
-export const exportAsPDF = () => {
-  const node = document.getElementById("react-flow-wrapper");
-  toPng(node).then((dataUrl) => {
-    const pdf = new jsPDF({
-      orientation: "landscape",
-      unit: "px",
-      format: [node.offsetWidth, node.offsetHeight],
-    });
-
-    pdf.addImage(dataUrl, "PNG", 0, 0, node.offsetWidth, node.offsetHeight);
-    pdf.save(`react-flow${Date.now()}.pdf`);
-  });
-};
 
 // Define custom node and edge types for React Flow
 const nodeTypes = {

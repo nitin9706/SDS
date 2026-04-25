@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import Canvas from "./Canvas";
 import Configbar from "./Configbar";
 import Topbar from "./Topbar";
+import Simulation from "./Simulation";
 
 import "reactflow/dist/style.css";
 
@@ -31,6 +32,7 @@ const Builder = () => {
             {/* Right configuration panel for selected nodes */}
             <Configbar />
           </div>
+          <Simulation />
         </div>
       </div>
     </NodeProvider>
