@@ -14,7 +14,11 @@ import {
   RiLightbulbFill,
 } from "react-icons/ri";
 import { SiWhatsapp, SiNetflix, SiUber, SiX } from "react-icons/si";
+
+// Landing page component showcasing the system design simulator
+// Includes hero section, interactive demo, features, and examples
 const nodes = [
+  // Sample nodes for the demo flow diagram
   {
     id: "1",
     position: { x: 0, y: 0 },
@@ -67,12 +71,14 @@ const nodes = [
 ];
 
 const edges = [
+  // Connections between the demo nodes
   { id: "e1", source: "1", target: "2", animated: true },
   { id: "e2", source: "2", target: "3", animated: true },
   { id: "e3", source: "3", target: "4", animated: true },
 ];
 
 const examples = [
+  // Example architectures featured on the landing page
   {
     name: "WhatsApp Messaging",
     icon: <SiWhatsapp className="text-green-500 text-3xl" />,
@@ -91,10 +97,10 @@ const examples = [
   },
 ];
 export default function LandingPage() {
+  // Main landing page component with multiple sections
   return (
     <div className="bg-black text-white min-h-screen">
-      {/* NAVBAR */}
-
+      {/* Navigation bar with links and GitHub button */}
       <nav className="flex justify-between items-center px-10 py-6 border-b border-gray-800">
         <h1 className="text-xl font-bold">System Design Simulator</h1>
 

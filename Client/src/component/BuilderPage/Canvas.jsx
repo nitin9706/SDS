@@ -16,8 +16,7 @@ import { useNodeContext } from "../../context/NodeContext";
 import jsPDF from "jspdf";
 import { toPng } from "html-to-image";
 
-// export document thing
-
+// Function to export the current canvas as a PDF
 export const exportAsPDF = () => {
   const node = document.getElementById("react-flow-wrapper");
   toPng(node).then((dataUrl) => {
@@ -32,6 +31,7 @@ export const exportAsPDF = () => {
   });
 };
 
+// Define custom node and edge types for React Flow
 const nodeTypes = {
   customNode: CustomNode,
 };
@@ -39,19 +39,22 @@ const edgeTypes = {
   customEdge: CustomEdge,
 };
 
+// Initial empty arrays for nodes and edges
 const initialNodes = [];
-
 const initialEdges = [];
 
+// Main canvas component where users build their system diagrams
 const Canvas = () => {
   const reactFlowWrapper = useRef(null);
 
   const { project } = useReactFlow();
   const { setSelectedNode } = useNodeContext();
 
+  // State management for nodes and edges using React Flow hooks
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+  // Callback to handle connecting nodes with edges
   const onConnect = useCallback(
     (params) =>
       setEdges((eds) =>
@@ -67,6 +70,7 @@ const Canvas = () => {
     [setEdges],
   );
 
+  // Callback to handle node selection changes
   const onSelectionChange = useCallback(
     (changes) => {
       const selectedNodes = changes?.nodes || [];
@@ -80,21 +84,25 @@ const Canvas = () => {
     [nodes, setSelectedNode],
   );
 
+  // Callback to handle dropping dragged components onto the canvas
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
 
+      // Parse the dragged component data
       const data = JSON.parse(
         event.dataTransfer.getData("application/reactflow"),
       );
 
+      // Calculate the drop position
       const position = project({
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
       });
 
+      // Create a new node at the drop position
       const newNode = {
         id: `${Date.now()}`,
         type: "customNode",
@@ -120,6 +128,7 @@ const Canvas = () => {
     [project, setNodes],
   );
 
+  // Callback to allow drag over the canvas
   const onDragOver = useCallback((event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";

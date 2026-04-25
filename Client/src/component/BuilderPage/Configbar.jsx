@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useNodeContext } from "../../context/NodeContext";
 import { useReactFlow } from "reactflow";
 
+// Configuration panel component for editing selected node properties
 const Configbar = () => {
   const { selectedNode, setSelectedNode } = useNodeContext();
   const { getNodes, setNodes } = useReactFlow();
 
+  // Local state for form inputs
   const [label, setLabel] = useState("");
   const [color, setColor] = useState("#6366f1");
 
+  // Update local state when selected node changes
   useEffect(() => {
     if (selectedNode) {
       setLabel(selectedNode.data.label || "");
@@ -16,8 +19,10 @@ const Configbar = () => {
     }
   }, [selectedNode]);
 
+  // Don't render if no node is selected
   if (!selectedNode) return null;
 
+  // Function to update node data and sync with context
   const updateNode = (data) => {
     const nodes = getNodes();
 
@@ -34,6 +39,7 @@ const Configbar = () => {
     });
   };
 
+  // Function to update specific config properties
   const updateConfig = (key, value) => {
     const config = {
       ...selectedNode.data.defaultData,
@@ -43,12 +49,14 @@ const Configbar = () => {
     updateNode({ defaultData: config });
   };
 
+  // Function to delete the selected node
   const handleDelete = () => {
     const nodes = getNodes().filter((n) => n.id !== selectedNode.id);
     setNodes(nodes);
     setSelectedNode(null);
   };
 
+  // Function to duplicate the selected node
   const handleDuplicate = () => {
     const nodes = getNodes();
 
@@ -64,20 +72,21 @@ const Configbar = () => {
     setNodes([...nodes, newNode]);
   };
 
+  // Get the current config data
   const config = selectedNode.data.defaultData || {};
 
   return (
     <div className="w-80 h-[85%] flex flex-col bg-[#0f0f1a] border-l border-white/10 text-white overflow-y-auto">
-      {/* HEADER */}
+      {/* Header section */}
       <div className="p-5 border-b border-white/10">
         <h2 className="text-lg font-semibold text-purple-400">
           Component Settings
         </h2>
       </div>
 
-      {/* SCROLL AREA */}
+      {/* Scrollable content area */}
       <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-6">
-        {/* Component Info */}
+        {/* Component information display */}
         <div>
           <h3 className="text-sm font-semibold text-purple-300 mb-3">
             Component Info
@@ -94,7 +103,7 @@ const Configbar = () => {
           </div>
         </div>
 
-        {/* Label */}
+        {/* Label input field */}
         <div>
           <label className="text-xs text-gray-400">Label</label>
           <input
@@ -107,7 +116,7 @@ const Configbar = () => {
           />
         </div>
 
-        {/* Color */}
+        {/* Color picker */}
         <div>
           <label className="text-xs text-gray-400">Color</label>
           <input
@@ -121,13 +130,14 @@ const Configbar = () => {
           />
         </div>
 
-        {/* Infrastructure */}
+        {/* Infrastructure configuration section */}
         <div>
           <h3 className="text-sm font-semibold text-purple-300 mb-3">
             Infrastructure
           </h3>
 
           <div className="space-y-3">
+            {/* Number of instances */}
             <div>
               <label className="text-xs text-gray-400">Instances</label>
               <input
@@ -140,6 +150,7 @@ const Configbar = () => {
               />
             </div>
 
+            {/* Region selection */}
             <div>
               <label className="text-xs text-gray-400">Region</label>
               <select
@@ -147,16 +158,16 @@ const Configbar = () => {
                 onChange={(e) => updateConfig("region", e.target.value)}
                 className="w-full mt-1 px-3 py-2 bg-white/10 border border-white/10 rounded-lg"
               >
-                <option>us-east</option>
-                <option>us-west</option>
-                <option>eu-west</option>
-                <option>asia</option>
+                <option className="text-black ">us-east</option>
+                <option className="text-black ">us-west</option>
+                <option className="text-black ">eu-west</option>
+                <option className="text-black ">asia</option>
               </select>
             </div>
           </div>
         </div>
 
-        {/* Position */}
+        {/* Position display (read-only) */}
         <div>
           <h3 className="text-sm font-semibold text-purple-300 mb-3">
             Position
@@ -169,7 +180,7 @@ const Configbar = () => {
         </div>
       </div>
 
-      {/* FOOTER ACTIONS */}
+      {/* Footer with action buttons */}
       <div className="p-5 border-t border-white/10 flex gap-3">
         <button
           onClick={handleDuplicate}

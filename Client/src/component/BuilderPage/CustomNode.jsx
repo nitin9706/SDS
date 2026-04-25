@@ -2,9 +2,11 @@
 import React from "react";
 import { Handle, Position, useReactFlow } from "reactflow";
 
+// Custom node component for React Flow with delete functionality
 const CustomNode = ({ id, data, selected }) => {
   const { setNodes, setEdges } = useReactFlow();
 
+  // Function to delete the node and its connected edges
   const handleDelete = (event) => {
     event.stopPropagation();
     setNodes((nds) => nds.filter((node) => node.id !== id));
@@ -33,6 +35,7 @@ const CustomNode = ({ id, data, selected }) => {
       }}
       className="flex justify-center  items-center gap-3"
     >
+      {/* Component logo */}
       {data.logo && (
         <img
           src={data.logo}
@@ -41,8 +44,14 @@ const CustomNode = ({ id, data, selected }) => {
         />
       )}
 
-      <span>{data.label}</span>
+      {/* Node label and instance count */}
+      <div className="flex flex-col">
+        {" "}
+        <span>{data.label}</span>
+        <span className="text-xs">{data.defaultData.instances}</span>
+      </div>
 
+      {/* Delete button */}
       <button
         onClick={handleDelete}
         className="flex justify-center items-center text-2xl ml-10 cursor-pointer active:scale-120 "
@@ -50,6 +59,7 @@ const CustomNode = ({ id, data, selected }) => {
       >
         ×
       </button>
+      {/* Connection handles for edges */}
       <Handle
         type="target"
         position={Position.Left}

@@ -2,11 +2,12 @@ import React from "react";
 import { Save, Download, BarChart3, Search, Play } from "lucide-react";
 import { exportAsPDF } from "./Canvas";
 
+// Top navigation bar component for the builder with actions and search
 const Topbar = () => {
   return (
     <div className="sticky top-0 z-20 w-full bg-[#0b0b17]/80 backdrop-blur-xl border-b border-white/10">
       <div className="flex items-center justify-between px-6 py-3 text-white">
-        {/* LEFT */}
+        {/* Left section with title and workspace indicator */}
         <div className="flex items-center gap-4">
           <h1
             className="
@@ -28,7 +29,7 @@ const Topbar = () => {
           </span>
         </div>
 
-        {/* CENTER SEARCH */}
+        {/* Center search bar for finding nodes and services */}
         <div className="relative w-[30%]">
           <Search size={16} className="absolute left-3 top-2.5 text-gray-400" />
 
@@ -48,7 +49,7 @@ const Topbar = () => {
           />
         </div>
 
-        {/* RIGHT ACTIONS */}
+        {/* Right section with action buttons */}
         <div className="flex items-center gap-2">
           <button
             className="

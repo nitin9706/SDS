@@ -2,6 +2,7 @@
 import React from "react";
 import { BaseEdge, getBezierPath, useReactFlow } from "reactflow";
 
+// Custom edge component for React Flow with delete functionality
 const CustomEdge = ({
   id,
   sourceX,
@@ -12,6 +13,8 @@ const CustomEdge = ({
   targetPosition,
 }) => {
   const { setEdges } = useReactFlow();
+
+  // Calculate the bezier path for the edge
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -21,6 +24,7 @@ const CustomEdge = ({
     targetPosition,
   });
 
+  // Function to delete the edge
   const handleDelete = (event) => {
     event.stopPropagation();
     setEdges((eds) => eds.filter((edge) => edge.id !== id));
@@ -28,6 +32,7 @@ const CustomEdge = ({
 
   return (
     <g>
+      {/* The actual edge line */}
       <BaseEdge
         id={id}
         path={edgePath}
@@ -36,6 +41,7 @@ const CustomEdge = ({
           strokeWidth: 2,
         }}
       />
+      {/* Delete button positioned at the center of the edge */}
       <circle
         cx={labelX}
         cy={labelY}
@@ -46,6 +52,7 @@ const CustomEdge = ({
         style={{ cursor: "pointer" }}
         onClick={handleDelete}
       />
+      {/* Delete icon (X) */}
       <text
         x={labelX}
         y={labelY + 4}

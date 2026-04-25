@@ -3,27 +3,28 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { RiGithubFill, RiMailLine, RiLockPasswordLine } from "react-icons/ri";
 
+// Login page component for user authentication
 export default function Login() {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center text-white px-6">
-      {/* Background Glow */}
+      {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-purple-500/10 to-blue-500/20 blur-3xl"></div>
 
-      {/* Login Card */}
+      {/* Main login card with animation */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="relative w-full max-w-md bg-neutral-950 border border-gray-800 rounded-xl p-10 shadow-xl"
       >
-        {/* Title */}
+        {/* Login form title and description */}
         <h2 className="text-3xl font-bold text-center mb-2">Welcome Back</h2>
 
         <p className="text-gray-400 text-center mb-8">
           Login to continue designing systems
         </p>
 
-        {/* Login Form */}
+        {/* Login form with email and password fields */}
         <form className="space-y-6">
           {/* Email */}
           <div>

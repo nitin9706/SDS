@@ -7,7 +7,9 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 
+// Sidebar component providing draggable system components for the builder
 const Sidebar = () => {
+  // Function to handle drag start for components
   const onDragStart = (event, nodeData) => {
     event.dataTransfer.setData(
       "application/reactflow",
@@ -16,6 +18,7 @@ const Sidebar = () => {
     event.dataTransfer.effectAllowed = "move";
   };
 
+  // Array of available components that can be dragged onto the canvas
   const Shapes = [
     {
       text: "User",
@@ -73,12 +76,17 @@ const Sidebar = () => {
     },
   ];
 
+  // Get unique categories from the shapes
   const categories = [...new Set(Shapes.map((s) => s.type))];
 
+  // State for search input
   const [search, setSearch] = useState("");
+  // State for which categories are open/expanded
   const [openCategory, setOpenCategory] = useState({});
+  // State for whether the sidebar is open or collapsed
   const [openMenu, setOpenMenu] = useState(true);
 
+  // Function to toggle category expansion
   const toggleCategory = (category) => {
     setOpenCategory((prev) => ({
       ...prev,
@@ -86,10 +94,12 @@ const Sidebar = () => {
     }));
   };
 
+  // Filter shapes based on search input
   const filteredShapes = Shapes.filter((val) =>
     val.text.toLowerCase().includes(search.toLowerCase()),
   );
 
+  // Collapsed sidebar view when closed
   if (!openMenu) {
     return (
       <div
@@ -109,6 +119,7 @@ const Sidebar = () => {
     );
   }
 
+  // Expanded sidebar with full component list
   return (
     <div
       className="
@@ -120,8 +131,7 @@ const Sidebar = () => {
     text-white
     shadow-2xl"
     >
-      {/* HEADER */}
-
+      {/* Header with title and close button */}
       <div className="flex justify-between items-center pb-4 border-b border-white/10">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-purple-500 shadow-md shadow-purple-500/40"></div>
@@ -142,8 +152,7 @@ const Sidebar = () => {
         />
       </div>
 
-      {/* SEARCH */}
-
+      {/* Search input for filtering components */}
       <div className="relative mt-6">
         <Search className="absolute left-3 top-3 text-gray-400" size={16} />
 
@@ -166,8 +175,7 @@ const Sidebar = () => {
         />
       </div>
 
-      {/* LIST */}
-
+      {/* Scrollable list of components organized by category */}
       <div className="mt-6 flex-1 overflow-y-auto pr-2">
         {(search ? ["Search"] : categories).map((category) => {
           const list = search
