@@ -1,12 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import ReactFlow, {
-  Background,
-  Controls,
-  MiniMap,
-  useNodesState,
-  useEdgesState,
-  addEdge,
-} from "reactflow";
+import ReactFlow, { Background, Controls, MiniMap, addEdge } from "reactflow";
 
 import "reactflow/dist/style.css";
 import CustomNode from "./CustomNode";
@@ -27,15 +20,20 @@ const initialNodes = [];
 const initialEdges = [];
 
 // Main canvas component where users build their system diagrams
-const Canvas = () => {
+const Canvas = ({
+  onReactFlowInit,
+  nodes,
+  edges,
+  onNodesChange,
+  onEdgesChange,
+  setNodes,
+  setEdges,
+}) => {
   const reactFlowWrapper = useRef(null);
+  const reactFlowInstance = useRef(null);
 
   const { project } = useReactFlow();
   const { setSelectedNode } = useNodeContext();
-
-  // State management for nodes and edges using React Flow hooks
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   // Callback to handle connecting nodes with edges
   const onConnect = useCallback(
@@ -51,6 +49,15 @@ const Canvas = () => {
         ),
       ),
     [setEdges],
+  );
+
+  // Callback to handle React Flow initialization
+  const onInit = useCallback(
+    (instance) => {
+      reactFlowInstance.current = instance;
+      onReactFlowInit?.(instance);
+    },
+    [onReactFlowInit],
   );
 
   // Callback to handle node selection changes
@@ -118,7 +125,11 @@ const Canvas = () => {
   }, []);
 
   return (
-    <div className="flex-1 h-full w-full" ref={reactFlowWrapper}>
+    <div
+      className="flex-1 h-full w-full"
+      ref={reactFlowWrapper}
+      id="react-flow-canvas"
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -129,6 +140,7 @@ const Canvas = () => {
         onDrop={onDrop}
         onDragOver={onDragOver}
         onSelectionChange={onSelectionChange}
+        onInit={onInit}
         edgeTypes={edgeTypes}
         id="react-flow-wrapper"
       >

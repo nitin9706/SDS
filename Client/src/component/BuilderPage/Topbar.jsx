@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Save, Download, BarChart3, Search, Play } from "lucide-react";
 import { exportAsPDF } from "../../utils/exportUtils";
 
 // Top navigation bar component for the builder with actions and search
-const Topbar = () => {
+const Topbar = ({ reactFlowInstance, nodes, edges }) => {
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExportPDF = async () => {
+    try {
+      setIsExporting(true);
+      await exportAsPDF(reactFlowInstance, nodes, edges);
+    } catch (error) {
+      console.error("Export failed:", error);
+      // You could add a toast notification here
+      alert("Failed to export PDF. Please try again.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
   return (
     <div className="sticky top-0 z-20 w-full bg-[#0b0b17]/80 backdrop-blur-xl border-b border-white/10">
       <div className="flex items-center justify-between px-6 py-3 text-white">
@@ -66,17 +80,20 @@ const Topbar = () => {
           </button>
 
           <button
-            onClick={exportAsPDF}
+            onClick={handleExportPDF}
+            disabled={isExporting}
             className="
             flex items-center gap-2
             text-sm px-3 py-2
             rounded-lg
             bg-indigo-500/80
             hover:bg-indigo-600
+            disabled:opacity-50
+            disabled:cursor-not-allowed
             transition cursor-pointer active:scale-95"
           >
             <Download size={16} />
-            Export
+            {isExporting ? "Exporting..." : "Export"}
           </button>
 
           <button
