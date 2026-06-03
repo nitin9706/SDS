@@ -8,7 +8,7 @@
 
 An interactive, visual system design tool that helps developers and engineers practice system design interviews by building scalable architectures through an intuitive drag-and-drop interface.
 
-![System Design Simulator Preview](./preview.png)
+![System Design Simulator Preview](../client/src/assets/SDS.png)
 
 ## 🌟 Features
 
